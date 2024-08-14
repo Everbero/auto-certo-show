@@ -1,0 +1,19 @@
+{
+    "name": "3xweb/auto-certo-show",
+    "description": "A plugin to add a React component via shortcode that consumes an API.",
+    "type": "wordpress-plugin",
+    "license": "MIT",
+    "authors": [
+      {
+        "name": "Seu Nome",
+        "email": "seu-email@example.com"
+      }
+    ],
+    "require": {},
+    "autoload": {
+      "psr-4": {
+        "AutoCertoShow\\": "includes/"
+      }
+    }
+  }
+  
