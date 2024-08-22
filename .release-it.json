@@ -13,8 +13,7 @@
       "publish": false
     },
     "hooks": {
-      "before:git:bump": "npm run build",
-      "before:git:commit": "node scripts/update-plugin-version.js", 
+      "before:git:bump": "node scripts/update-plugin-version.js",
       "after:bump": "node scripts/create-zip.js"
     },
     "plugins": {

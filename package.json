@@ -1,6 +1,6 @@
 {
   "name": "auto-certo-show",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "private": true,
   "description": "A plugin to add a React component via shortcode that consumes an API.",
   "author": "Douglas Everbero",
@@ -13,7 +13,8 @@
     "packages-update": "wp-scripts packages-update",
     "start": "wp-scripts start",
     "check-engines": "wp-scripts check-engines",
-    "release": "release-it"
+    "release": "release-it",
+    "pre:release": "npm run build"
   },
   "devDependencies": {
     "@release-it/bumper": "^6.0.1",
