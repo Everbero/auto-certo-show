@@ -5,7 +5,7 @@ const path = require('path');
 const packageJson = require('../package.json');
 const version = packageJson.version;
 const outputDir = path.join(__dirname, '../dist');
-const outputFilePath = path.join(outputDir, `auto-certo-show-main-v${version}.zip`);
+const outputFilePath = path.join(outputDir, `auto-certo-show.zip`);
 
 function createZip() {
   // Garantir que o diretório dist exista
