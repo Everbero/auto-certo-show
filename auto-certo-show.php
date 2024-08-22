@@ -2,7 +2,7 @@
 /*
     Plugin Name: Auto Certo Show
     Description: Exibe os veículos da Auto Certo no seu site wordpress.
-    Version: 1.4.2
+    Version: 1.4.3
     Author: Douglas Everbero
 */
 
