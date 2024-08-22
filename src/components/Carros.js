@@ -131,7 +131,6 @@ const Carros = ({ carros, filtros, ordenacaoPreco }) => {
                       />
                     )
                   }
-                  
                 >
                   <Meta
                     title={`${carro.Marca} ${carro.Modelo}`}

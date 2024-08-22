@@ -1,9 +1,9 @@
 <?php
 /*
-Plugin Name: Auto Certo Show
-Description: A plugin to add a React component via shortcode that consumes an API.
-Version: 1.0
-Author: Seu Nome
+    Plugin Name: Auto Certo Show
+    Description: Exibe os veículos da Auto Certo no seu site wordpress.
+    Version: 1.0
+    Author: Douglas Everbero
 */
 
 if ( ! defined( 'ABSPATH' ) ) {
