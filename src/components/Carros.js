@@ -111,52 +111,48 @@ const Carros = ({ carros, filtros, ordenacaoPreco }) => {
         dataSource={filteredCarros}
         renderItem={(carro) => (
           <List.Item key={carro.Codigo}>
-            <Badge.Ribbon text={carro.Combustivel}>
-              <Card
-                bordered={true}
-                hoverable={true}
-                cover={
-                  carro.Fotos.length > 0 ? (
-                    <img
-                      alt={`Foto 1`}
-                      src={carro.Fotos[0].URL}
-                      style={{ width: "100%", borderRadius: "8px" }}
-                    />
-                  ) : (
-                    <img
-                      alt="Placeholder"
-                      src="https://placehold.it/600x400"
-                      style={{ width: "100%", borderRadius: "8px" }}
-                    />
-                  )
-                }
-                actions={[
-                  <Button
-                    type="secondary"
-                    href={`/veiculo/?id=${carro.Codigo}`}
-                  >
-                    Detalhes
-                  </Button>,
-                ]}
-              >
-                <Meta
-                  title={`${carro.Marca} ${carro.Modelo}`}
-                  description={carro.Versao}
-                />
-                <List>
-                  <List.Item>
-                    <CarOutlined /> {carro.AnoFabricacao}/{carro.AnoModelo}{" "}
-                    <DashboardOutlined /> {carro.Km.toLocaleString("pt-BR")} km
-                  </List.Item>
-                  <List.Item>
-                    <DollarOutlined />{" "}
-                    {carro.Preco > 0
-                      ? carro.Preco.toLocaleString("pt-BR")
-                      : "Consulte-nos"}
-                  </List.Item>
-                </List>
-              </Card>
-            </Badge.Ribbon>
+            <a href={`/veiculo/?id=${carro.Codigo}`}>
+              <Badge.Ribbon text={carro.Combustivel}>
+                <Card
+                  bordered={true}
+                  hoverable={true}
+                  cover={
+                    carro.Fotos.length > 0 ? (
+                      <img
+                        alt={`Foto 1`}
+                        src={carro.Fotos[0].URL}
+                        style={{ width: "100%", borderRadius: "8px" }}
+                      />
+                    ) : (
+                      <img
+                        alt="Placeholder"
+                        src="https://placehold.it/600x400"
+                        style={{ width: "100%", borderRadius: "8px" }}
+                      />
+                    )
+                  }
+                  
+                >
+                  <Meta
+                    title={`${carro.Marca} ${carro.Modelo}`}
+                    description={carro.Versao}
+                  />
+                  <List>
+                    <List.Item>
+                      <CarOutlined /> {carro.AnoFabricacao}/{carro.AnoModelo}{" "}
+                      <DashboardOutlined /> {carro.Km.toLocaleString("pt-BR")}{" "}
+                      km
+                    </List.Item>
+                    <List.Item>
+                      <DollarOutlined />{" "}
+                      {carro.Preco > 0
+                        ? carro.Preco.toLocaleString("pt-BR")
+                        : "Consulte-nos"}
+                    </List.Item>
+                  </List>
+                </Card>
+              </Badge.Ribbon>
+            </a>
           </List.Item>
         )}
       />
