@@ -109,57 +109,51 @@ const CarSlider = ({ carros, filtros, ordenacaoPreco }) => {
         slidesToShow={isDesktop ? 3 : 1}
       >
         {filteredCarros.map((carro) => (
-          <div
-            key={carro.Codigo}
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              padding: "20px",
-            }}
-          >
-            <a href={`/veiculo/?id=${carro.Codigo}`}>
-              <Badge.Ribbon text={carro.Combustivel}>
-                <Card
-                  bordered={true}
-                  hoverable={true}
-                  cover={
-                    carro.Fotos.length > 0 ? (
-                      <img
-                        alt={`Foto 1`}
-                        src={carro.Fotos[0].URL}
-                        style={{ width: "100%", borderRadius: "8px" }}
-                      />
-                    ) : (
-                      <img
-                        alt="Placeholder"
-                        src="https://placehold.it/600x400"
-                        style={{ width: "100%", borderRadius: "8px" }}
-                      />
-                    )
-                  }
-                >
-                  <Meta
-                    title={`${carro.Marca} ${carro.Modelo}`}
-                    description={carro.Versao}
-                  />
+          <a key={carro.Codigo} href={`/veiculo/?id=${carro.Codigo}`}>
+            <Badge.Ribbon
+              text={carro.Combustivel}
+              style={{ marginRight: 15 }}
+            >
+              <Card
+                style={{ margin: "10px 15px 10px 0" }}
+                bordered={true}
+                hoverable={true}
+                cover={
+                  carro.Fotos.length > 0 ? (
+                    <img
+                      alt={`Foto 1`}
+                      src={carro.Fotos[0].URL}
+                      style={{ width: "100%", borderRadius: "8px" }}
+                    />
+                  ) : (
+                    <img
+                      alt="Placeholder"
+                      src="https://placehold.it/600x400"
+                      style={{ width: "100%", borderRadius: "8px" }}
+                    />
+                  )
+                }
+              >
+                <Meta
+                  title={`${carro.Marca} ${carro.Modelo}`}
+                  description={carro.Versao}
+                />
 
-                  <div>
-                    <p>
-                      <CarOutlined /> {carro.AnoFabricacao}/{carro.AnoModelo}{" "}
-                      <DashboardOutlined /> {carro.Km.toLocaleString("pt-BR")}{" "}
-                      km
-                    </p>
-                    <p>
-                      <DollarOutlined />{" "}
-                      {carro.Preco > 0
-                        ? carro.Preco.toLocaleString("pt-BR")
-                        : "Consulte-nos"}
-                    </p>
-                  </div>
-                </Card>
-              </Badge.Ribbon>
-            </a>
-          </div>
+                <div>
+                  <p>
+                    <CarOutlined /> {carro.AnoFabricacao}/{carro.AnoModelo}{" "}
+                    <DashboardOutlined /> {carro.Km.toLocaleString("pt-BR")} km
+                  </p>
+                  <p>
+                    <DollarOutlined />{" "}
+                    {carro.Preco > 0
+                      ? carro.Preco.toLocaleString("pt-BR")
+                      : "Consulte-nos"}
+                  </p>
+                </div>
+              </Card>
+            </Badge.Ribbon>
+          </a>
         ))}
       </Carousel>
     </div>
