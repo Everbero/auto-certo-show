@@ -6,6 +6,7 @@ import {
   DashboardOutlined,
 } from "@ant-design/icons";
 import DetalhesCarro from "./DetalhesCarro";
+import { useMediaQuery } from "react-responsive";
 
 const { Title } = Typography;
 const { Meta } = Card;
@@ -14,6 +15,7 @@ const CarSlider = ({ carros, filtros, ordenacaoPreco }) => {
   const [selectedCarro, setSelectedCarro] = useState(null);
   const [filtrosAplicados, setFiltrosAplicados] = useState(false);
   const prevFiltros = useRef(filtros);
+  const isDesktop = useMediaQuery({ query: "(min-width: 769px)" });
 
   useEffect(() => {
     if (prevFiltros.current !== filtros) {
@@ -104,26 +106,7 @@ const CarSlider = ({ carros, filtros, ordenacaoPreco }) => {
         arrows
         autoplay
         style={{ background: "#364d79", padding: 20 }}
-        responsive={[
-          {
-            breakpoint: 768, // Tamanho máximo da tela para 1 slide
-            settings: {
-              slidesToShow: 1,
-            },
-          },
-          {
-            breakpoint: 1024, // Tamanho máximo da tela para 2 slides
-            settings: {
-              slidesToShow: 2,
-            },
-          },
-          {
-            breakpoint: Infinity, // Padrão para telas maiores
-            settings: {
-              slidesToShow: 3,
-            },
-          },
-        ]}
+        slidesToShow={isDesktop ? 3 : 1}
       >
         {filteredCarros.map((carro) => (
           <div
@@ -135,45 +118,46 @@ const CarSlider = ({ carros, filtros, ordenacaoPreco }) => {
             }}
           >
             <a href={`/veiculo/?id=${carro.Codigo}`}>
-              <Card
-                style={{ width: 300 }}
-                bordered={true}
-                hoverable={true}
-                cover={
-                  carro.Fotos.length > 0 ? (
-                    <img
-                      alt={`Foto 1`}
-                      src={carro.Fotos[0].URL}
-                      style={{ width: "100%", borderRadius: "8px" }}
-                    />
-                  ) : (
-                    <img
-                      alt="Placeholder"
-                      src="https://placehold.it/600x400"
-                      style={{ width: "100%", borderRadius: "8px" }}
-                    />
-                  )
-                }
-              >
-                <Badge.Ribbon text={carro.Combustivel}>
+              <Badge.Ribbon text={carro.Combustivel}>
+                <Card
+                  bordered={true}
+                  hoverable={true}
+                  cover={
+                    carro.Fotos.length > 0 ? (
+                      <img
+                        alt={`Foto 1`}
+                        src={carro.Fotos[0].URL}
+                        style={{ width: "100%", borderRadius: "8px" }}
+                      />
+                    ) : (
+                      <img
+                        alt="Placeholder"
+                        src="https://placehold.it/600x400"
+                        style={{ width: "100%", borderRadius: "8px" }}
+                      />
+                    )
+                  }
+                >
                   <Meta
                     title={`${carro.Marca} ${carro.Modelo}`}
                     description={carro.Versao}
                   />
-                </Badge.Ribbon>
-                <div>
-                  <p>
-                    <CarOutlined /> {carro.AnoFabricacao}/{carro.AnoModelo}{" "}
-                    <DashboardOutlined /> {carro.Km.toLocaleString("pt-BR")} km
-                  </p>
-                  <p>
-                    <DollarOutlined />{" "}
-                    {carro.Preco > 0
-                      ? carro.Preco.toLocaleString("pt-BR")
-                      : "Consulte-nos"}
-                  </p>
-                </div>
-              </Card>
+
+                  <div>
+                    <p>
+                      <CarOutlined /> {carro.AnoFabricacao}/{carro.AnoModelo}{" "}
+                      <DashboardOutlined /> {carro.Km.toLocaleString("pt-BR")}{" "}
+                      km
+                    </p>
+                    <p>
+                      <DollarOutlined />{" "}
+                      {carro.Preco > 0
+                        ? carro.Preco.toLocaleString("pt-BR")
+                        : "Consulte-nos"}
+                    </p>
+                  </div>
+                </Card>
+              </Badge.Ribbon>
             </a>
           </div>
         ))}
