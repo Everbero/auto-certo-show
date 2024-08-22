@@ -1,0 +1,27 @@
+{
+    "$schema": "https://unpkg.com/release-it/schema/release-it.json",
+    "git": {
+      "commitMessage": "chore: release v${version}",
+      "tagName": "v${version}",
+      "requireCleanWorkingDir": false
+    },
+    "github": {
+      "release": true,
+      "tokenRef": "GITHUB_TOKEN"
+    },
+    "npm": {
+      "publish": false
+    },
+    "hooks": {
+      "before:git:bump": "npm run build",
+      "after:bump": "node scripts/create-zip.js"
+    },
+    "plugins": {
+      "@release-it/bumper": {
+        "in": "package.json",
+        "out": [
+          "package.json"
+        ]
+      }
+    }
+  }

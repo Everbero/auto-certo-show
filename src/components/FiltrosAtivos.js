@@ -1,6 +1,23 @@
 import React from "react";
 import { Tag, Button } from "antd";
 
+const initialValues = {
+  tipo: { id: null, nome: "" },
+  marca: { id: null, descricao: "" },
+  modelo: { id: null, descricao: "" },
+  versao: { id: null, descricao: "" },
+  anoDe: null,
+  anoAte: null,
+  precoDe: null,
+  precoAte: null,
+  combustivel: { id: null, descricao: "" },
+  cor: { id: null, descricao: "" },
+  cambio: { id: null, descricao: "" },
+  opcionais: [],
+  textoFiltro: "",
+  ordenacaoPreco: "asc",
+};
+
 const FiltrosAtivos = ({ filtrosAtivos, setFiltrosAtivos }) => {
   const handleClearFilters = () => {
     setFiltrosAtivos({
@@ -101,9 +118,13 @@ const FiltrosAtivos = ({ filtrosAtivos, setFiltrosAtivos }) => {
                 <Tag
                   key={filtro}
                   closable
-                  onClose={() =>
-                    setFiltrosAtivos({ ...filtrosAtivos, [filtro]: null })
-                  }
+                  onClose={() => {
+                    console.log("Filtro removido:", filtro);
+                    setFiltrosAtivos({
+                      ...filtrosAtivos,
+                      [filtro]: initialValues[filtro],
+                    });
+                  }}
                   style={{ marginBottom: "8px" }}
                 >
                   {label} ✕

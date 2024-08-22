@@ -12,12 +12,13 @@ import FiltroTexto from "./components/FiltroTexto";
 import FiltroPreco from "./components/FiltroPreco";
 import OrdenarPreco from "./components/OrdenarPreco";
 import FiltrosAtivos from "./components/FiltrosAtivos";
-import { Layout, Row, Col } from "antd";
+import { Layout, Row, Col, Skeleton } from "antd";
 
 const { Content } = Layout;
 
 const App = () => {
   const [carros, setCarros] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [filtrosAtivos, setFiltrosAtivos] = useState({
     tipo: { id: null, nome: "" },
     marca: { id: null, descricao: "" },
@@ -50,6 +51,7 @@ const App = () => {
   useEffect(() => {
     const fetchCarros = async () => {
       try {
+        setIsLoading(true); // Inicia o estado de carregamento
         const response = await fetch("/wp-json/autocerto/v1/estoque", {
           headers: {
             "Content-Type": "application/json",
@@ -62,6 +64,8 @@ const App = () => {
         setCarros(data);
       } catch (error) {
         console.error("Error fetching carros:", error);
+      } finally {
+        setIsLoading(false); // Finaliza o estado de carregamento
       }
     };
 
@@ -144,16 +148,32 @@ const App = () => {
               }
             />
 
-            {/* Lista de veículos */}
-            <Carros
-              carros={carros}
-              filtros={filtrosAtivos}
-              ordenacaoPreco={filtrosAtivos.ordenacaoPreco}
-            />
+            {/* Lista de veículos ou Skeleton */}
+            {isLoading ? (
+              <SkeletonLoading />
+            ) : (
+              <Carros
+                carros={carros}
+                filtros={filtrosAtivos}
+                ordenacaoPreco={filtrosAtivos.ordenacaoPreco}
+              />
+            )}
           </Col>
         </Row>
       </Content>
     </Layout>
+  );
+};
+
+const SkeletonLoading = () => {
+  return (
+    <Row gutter={[16, 16]}>
+      {[1, 2, 3, 4, 5, 6].map((index) => (
+        <Col key={index} xs={24} md={12} lg={8}>
+          <Skeleton active />
+        </Col>
+      ))}
+    </Row>
   );
 };
 

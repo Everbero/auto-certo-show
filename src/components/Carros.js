@@ -14,6 +14,7 @@ const Carros = ({ carros, filtros, ordenacaoPreco }) => {
   const [selectedCarro, setSelectedCarro] = useState(null);
   const [filtrosAplicados, setFiltrosAplicados] = useState(false);
   const prevFiltros = useRef(filtros);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (prevFiltros.current !== filtros) {
