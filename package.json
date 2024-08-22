@@ -1,25 +1,30 @@
 {
-    "name": "auto-certo-show",
-    "version": "1.0.0",
-    "private": true,
-    "description": "A plugin to add a React component via shortcode that consumes an API.",
-    "author": "Seu Nome",
-    "license": "MIT",
-    "main": "build/index.js",
-    "scripts": {
-        "build": "wp-scripts build",
-        "format": "wp-scripts format",
-        "lint:js": "wp-scripts lint-js",
-        "packages-update": "wp-scripts packages-update",
-        "start": "wp-scripts start",
-        "check-engines": "wp-scripts check-engines"
-    },
-    "devDependencies": {
-        "@wordpress/scripts": "^28.4.0"
-    },
-    "dependencies": {
-        "@wordpress/icons": "^10.0.0",
-        "antd": "^5.20.0",
-        "react-router-dom": "^6.3.0"
-    }
+  "name": "auto-certo-show",
+  "version": "1.1.2",
+  "private": true,
+  "description": "A plugin to add a React component via shortcode that consumes an API.",
+  "author": "Douglas Everbero",
+  "license": "MIT",
+  "main": "build/index.js",
+  "scripts": {
+    "build": "wp-scripts build",
+    "format": "wp-scripts format",
+    "lint:js": "wp-scripts lint-js",
+    "packages-update": "wp-scripts packages-update",
+    "start": "wp-scripts start",
+    "check-engines": "wp-scripts check-engines",
+    "release": "release-it"
+  },
+  "devDependencies": {
+    "@wordpress/scripts": "^28.4.0",
+    "archiver": "^7.0.1",
+    "dotenv": "^16.4.5",
+    "release-it": "^17.6.0",
+    "@release-it/bumper": "^6.0.1"
+  },
+  "dependencies": {
+    "@wordpress/icons": "^10.0.0",
+    "antd": "^5.20.0",
+    "react-router-dom": "^6.3.0"
+  }
 }
