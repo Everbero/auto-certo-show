@@ -16,15 +16,16 @@
     "release": "release-it"
   },
   "devDependencies": {
+    "@release-it/bumper": "^6.0.1",
     "@wordpress/scripts": "^28.4.0",
     "archiver": "^7.0.1",
     "dotenv": "^16.4.5",
-    "release-it": "^17.6.0",
-    "@release-it/bumper": "^6.0.1"
+    "release-it": "^17.6.0"
   },
   "dependencies": {
     "@wordpress/icons": "^10.0.0",
     "antd": "^5.20.0",
+    "react-responsive": "^10.0.0",
     "react-router-dom": "^6.3.0"
   }
 }

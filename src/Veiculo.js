@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Card, Typography, Descriptions, Row, Col, Button, Tag, Divider, Spin, Carousel, Space } from 'antd';
+import React, { useState, useEffect, useRef } from 'react';
+import { Card, Typography, Descriptions, Row, Col, Button, Tag, Divider, Spin, Carousel, Space, Image } from 'antd';
 import { CarOutlined, CalendarOutlined, DollarOutlined, DashboardOutlined, ArrowLeftOutlined } from '@ant-design/icons';
-import { useParams, useNavigate } from 'react-router-dom'; // useNavigate substitui useHistory
-// import Contato from './components/Contato';
-// import SimularFinanciamento from './components/SimularFinanciamento';
 
 const { Title, Text } = Typography;
 
@@ -12,6 +9,8 @@ const Veiculo = () => {
     const id = urlParams.get('id');
     const [carro, setCarro] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [currentSlide, setCurrentSlide] = useState(0);
+    const carouselRef = useRef(null);
 
     useEffect(() => {
         if (!id) return;
@@ -30,12 +29,13 @@ const Veiculo = () => {
         fetchCarro();
     }, [id]);
 
-    const handleContactSubmit = (values) => {
-        console.log('Formulário de Contato Enviado:', values);
+    const handleBeforeChange = (oldIndex, newIndex) => {
+        setCurrentSlide(newIndex);
     };
 
-    const handleFinanceSimulation = (values) => {
-        console.log('Simulação de Financiamento:', values);
+    const handleThumbnailClick = (index) => {
+        setCurrentSlide(index);
+        carouselRef.current.goTo(index, false); // Muda para o slide correspondente
     };
 
     if (loading) {
@@ -51,21 +51,25 @@ const Veiculo = () => {
             style={{ borderRadius: '8px', overflow: 'hidden', padding: '20px', maxWidth: '1200px', margin: 'auto' }}
             bodyStyle={{ padding: 0 }}
         >
-
             <Button
                 type="link"
                 icon={<ArrowLeftOutlined />}
-                onClick={() => navigate('/listagem')}
                 href={`/listagem`}
                 style={{ marginBottom: 16 }}
-                
             >
                 Voltar para listagem
             </Button>
 
             <Row gutter={[24, 24]}>
                 <Col xs={24} md={12}>
-                    <Carousel arrows autoplay>
+                    <Carousel
+                        ref={carouselRef}
+                        arrows
+                        autoplay
+                        beforeChange={handleBeforeChange}
+                        dots={false}
+                        style={{ marginBottom: '16px' }}
+                    >
                         {carro.Fotos.length > 0 ? (
                             carro.Fotos.map((foto, index) => (
                                 <div key={index}>
@@ -84,6 +88,25 @@ const Veiculo = () => {
                             />
                         )}
                     </Carousel>
+                    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '8px' }}>
+                        {carro.Fotos.length > 0 &&
+                            carro.Fotos.map((foto, index) => (
+                                <Image
+                                    key={index}
+                                    width={60}
+                                    height={40}
+                                    src={foto.URL || "https://placehold.it/600x400"}
+                                    style={{
+                                        border: currentSlide === index ? '2px solid #1890ff' : '2px solid transparent',
+                                        cursor: 'pointer',
+                                        margin: '0 4px',
+                                        borderRadius: '4px',
+                                    }}
+                                    preview={false}
+                                    onClick={() => handleThumbnailClick(index)}
+                                />
+                            ))}
+                    </div>
                 </Col>
 
                 <Col xs={24} md={12}>
@@ -132,22 +155,7 @@ const Veiculo = () => {
                     )}
                 </Col>
             </Row>
-{/* 
-            <Divider />
 
-            <Row gutter={[16, 16]}>
-                <Col xs={24}>
-                    <SimularFinanciamento onSimular={handleFinanceSimulation} valorInicial={carro.Preco} />
-                </Col>
-            </Row> */}
-
-            <Divider />
-
-            {/* <Row gutter={[16, 16]}>
-                <Col xs={24}>
-                    <Contato onSubmit={handleContactSubmit} />
-                </Col>
-            </Row> */}
         </Card>
     );
 };

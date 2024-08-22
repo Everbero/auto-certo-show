@@ -12,8 +12,6 @@ class Api {
 
     public function __construct() {
         $this->api_url = get_option('autocerto_api_url');
-        $this->client_id = get_option('autocerto_client_id');
-        $this->client_secret = get_option('autocerto_client_secret');
         $this->username = get_option('autocerto_username');
         $this->password = get_option('autocerto_password');
     }
@@ -35,8 +33,6 @@ class Api {
     private function obter_access_token() {
         $body = http_build_query(array(
             'grant_type' => 'password',
-            'client_id' => $this->client_id,
-            'client_secret' => $this->client_secret,
             'username' => $this->username,
             'password' => $this->password,
         ));
@@ -56,6 +52,10 @@ class Api {
         }
 
         $data = json_decode(wp_remote_retrieve_body($response), true);
+        
+        // armazena o token de acesso na opcao do plugin
+        update_option('autocerto_access_token', $data);
+
 
         return isset($data['access_token']) ? $data['access_token'] : null;
     }

@@ -21,8 +21,7 @@ class Settings {
 
     public static function register_settings() {
         register_setting( 'auto_certo_show_settings_group', 'autocerto_api_url' );
-        register_setting( 'auto_certo_show_settings_group', 'autocerto_client_id' );
-        register_setting( 'auto_certo_show_settings_group', 'autocerto_client_secret' );
+        register_setting( 'auto_certo_show_settings_group', 'autocerto_access_token' );
         register_setting( 'auto_certo_show_settings_group', 'autocerto_username' );
         register_setting( 'auto_certo_show_settings_group', 'autocerto_password' );
 
@@ -42,17 +41,9 @@ class Settings {
         );
 
         add_settings_field(
-            'autocerto_client_id',
-            'Client ID',
-            array( __CLASS__, 'client_id_render' ),
-            'auto-certo-show',
-            'auto_certo_show_settings_section'
-        );
-
-        add_settings_field(
-            'autocerto_client_secret',
+            'autocerto_access_token',
             'Client Secret',
-            array( __CLASS__, 'client_secret_render' ),
+            array( __CLASS__, 'autocerto_access_token_render' ),
             'auto-certo-show',
             'auto_certo_show_settings_section'
         );
@@ -83,14 +74,11 @@ class Settings {
         echo '<input type="text" name="autocerto_api_url" value="' . esc_attr( $api_url ) . '" size="50">';
     }
 
-    public static function client_id_render() {
-        $client_id = get_option( 'autocerto_client_id' );
-        echo '<input type="text" name="autocerto_client_id" value="' . esc_attr( $client_id ) . '" size="50">';
-    }
-
-    public static function client_secret_render() {
-        $client_secret = get_option( 'autocerto_client_secret' );
-        echo '<input type="password" name="autocerto_client_secret" value="' . esc_attr( $client_secret ) . '" size="50">';
+    public static function autocerto_access_token_render() {
+        $client_secret = get_option( 'autocerto_access_token' );
+        //mostra a dica este campo é preenchido automáticamente
+        echo '<p>Este campo é preenchido automaticamente.</p>';
+        echo '<input type="password" name="autocerto_access_token" disabled value="' . esc_attr( $client_secret["token"] ) . '" size="50">';
     }
 
     public static function username_render() {
