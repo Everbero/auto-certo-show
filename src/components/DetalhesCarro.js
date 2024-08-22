@@ -1,8 +1,8 @@
 import React from 'react';
 import { Card, Typography, Descriptions, Row, Col, Button, Tag, Divider } from 'antd';
 import { CarOutlined, CalendarOutlined, DollarOutlined, DashboardOutlined } from '@ant-design/icons';
-import Contato from './Contato';  // Importe o componente de Contato
-import SimularFinanciamento from './SimularFinanciamento';  // Importe o componente de Simular Financiamento
+// import Contato from './Contato';  // Importe o componente de Contato
+// import SimularFinanciamento from './SimularFinanciamento';  // Importe o componente de Simular Financiamento
 
 const { Title } = Typography;
 
@@ -74,23 +74,23 @@ const DetalhesCarro = ({ carro, onBack }) => {
                 </Col>
             </Row>
 
-            <Divider />
+            {/* <Divider /> */}
 
             {/* Componente de Simulação de Financiamento */}
-            <Row>
+            {/* <Row>
                 <Col xs={24}>
                     <SimularFinanciamento onSimular={handleFinanceSimulation} valorInicial={carro.Preco}/>
                 </Col>
-            </Row>
+            </Row> */}
 
-            <Divider />
+            {/* <Divider /> */}
 
             {/* Componente de Contato */}
-            <Row>
+            {/* <Row>
                 <Col xs={24}>
                     <Contato onSubmit={handleContactSubmit} />
                 </Col>
-            </Row>
+            </Row> */}
         </Card>
     );
 };

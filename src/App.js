@@ -36,7 +36,6 @@ const App = () => {
   });
 
   const handleFiltroChange = (filtro, valor) => {
-    console.log("alterando filtro", filtro, valor);
     setFiltrosAtivos((prevFiltros) => {
       if (prevFiltros[filtro] === valor) {
         return prevFiltros; // Evita atualização se o valor não mudou

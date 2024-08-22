@@ -21,7 +21,7 @@ class Api {
     public static function init() {
         $instance = new self(); // Cria uma instância da classe
         $token = $instance->get_stored_token();
-        
+
         if (!$token) {
             $token = $instance->obter_access_token();
             if ($token) {
@@ -59,6 +59,34 @@ class Api {
 
         return isset($data['access_token']) ? $data['access_token'] : null;
     }
+
+    // Recebe a lista de carros ou um único carro e filtra os campos Renavam, Chassi e Placa
+    private function filtrarDocsCarro($carros) {
+        // Verifica se a entrada é um único objeto ou um array de objetos
+        if (isset($carros['Codigo'])) {
+            // É um único objeto, então aplica o filtro e retorna
+            return $this->filtrarCamposCarro($carros);
+        } elseif (is_array($carros)) {
+            // É um array de objetos, então aplica o filtro a cada um
+            return array_map([$this, 'filtrarCamposCarro'], $carros);
+        }
+
+        // Retorna o original se não for um formato esperado
+        return $carros;
+    }
+
+    // Função auxiliar para filtrar os campos de um único carro
+    private function filtrarCamposCarro(array $carro): array {
+        // Verifica e garante que os valores são strings antes de aplicar substr
+        $carro['Chassi'] = isset($carro['Chassi']) && is_string($carro['Chassi']) ? "Final " . substr($carro['Chassi'], -3) : 'N/A';
+        $carro['Renavam'] = isset($carro['Renavam']) && is_string($carro['Renavam']) ? "Final " . substr($carro['Renavam'], -3) : 'N/A';
+        $carro['Placa'] = isset($carro['Placa']) && is_string($carro['Placa']) ? "Final " . substr($carro['Placa'], -1) : 'N/A';
+
+        return $carro;
+    }
+
+
+
 
     private function get_stored_token() {
         $token_data = get_option('autocerto_access_token', false);
@@ -109,6 +137,7 @@ class Api {
         }
 
         $data = json_decode(wp_remote_retrieve_body($response), true);
+        $data = $this->filtrarDocsCarro($data);
 
         return $data;
     }
@@ -311,13 +340,14 @@ class Api {
 
         return $data;
     }
+
     public function obter_veiculo($codigoVeiculo) {
         $token = $this->init(); // Obtém o token de autenticação
-    
+
         if (!$token) {
             return new \WP_Error('no_token', 'Unable to retrieve access token', array('status' => 403));
         }
-    
+
         $args = array(
             'headers' => array(
                 'Authorization' => 'Bearer ' . $token,
@@ -325,18 +355,18 @@ class Api {
             ),
             'method' => 'GET',
         );
-    
+
         $url = $this->api_url . '/api/Veiculo/ObterVeiculo?codigoVeiculo=' . urlencode($codigoVeiculo);
-    
+
         $response = wp_remote_get($url, $args);
-    
+
         if (is_wp_error($response)) {
             return $response;
         }
-    
+
         $data = json_decode(wp_remote_retrieve_body($response), true);
-    
+        $data = $this->filtrarDocsCarro($data);
+
         return $data;
     }
-    
 }

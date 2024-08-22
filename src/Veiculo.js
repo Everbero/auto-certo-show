@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Card, Typography, Descriptions, Row, Col, Button, Tag, Divider, Spin, Carousel, Space } from 'antd';
 import { CarOutlined, CalendarOutlined, DollarOutlined, DashboardOutlined, ArrowLeftOutlined } from '@ant-design/icons';
 import { useParams, useNavigate } from 'react-router-dom'; // useNavigate substitui useHistory
-import Contato from './components/Contato';
-import SimularFinanciamento from './components/SimularFinanciamento';
+// import Contato from './components/Contato';
+// import SimularFinanciamento from './components/SimularFinanciamento';
 
 const { Title, Text } = Typography;
 
@@ -132,22 +132,22 @@ const Veiculo = () => {
                     )}
                 </Col>
             </Row>
-
+{/* 
             <Divider />
 
             <Row gutter={[16, 16]}>
                 <Col xs={24}>
                     <SimularFinanciamento onSimular={handleFinanceSimulation} valorInicial={carro.Preco} />
                 </Col>
-            </Row>
+            </Row> */}
 
             <Divider />
 
-            <Row gutter={[16, 16]}>
+            {/* <Row gutter={[16, 16]}>
                 <Col xs={24}>
                     <Contato onSubmit={handleContactSubmit} />
                 </Col>
-            </Row>
+            </Row> */}
         </Card>
     );
 };
